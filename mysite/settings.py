@@ -20,12 +20,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '8^&nsv@@9sm3+2^#6pzo7nat!houbcz&u9pp0m3#@=#j%#_mkg'
+SECRET_KEY = SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY','8^&nsv@@9sm3+2^#6pzo7nat!houbcz&u9pp0m3#@=#j%#_mkg')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = bool(os.environ.get('DJANGO_DEBUG', True))
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['aiwanadventures.com']
 
 
 # Application definition
@@ -75,10 +75,13 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+DATABASES = 'default': {
+    'ENGINE': 'django.db.backends.postgresql',
+    'NAME': os.environ['dbname'],
+    'USER': os.environ['dbuser'],
+    'PASSWORD': os.environ['dbpassword'],
+    'HOST': os.environ['dbhost'],
+    'PORT': '5432',
     }
 }
 
